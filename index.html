@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Color Tool</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Style/style.css">
+    </head>
+    <body>
+        <div class="color-tool">
+            <div class="color-tool_wrapper">
+                <h1 class="color-tool_title">Lighten/Darken Color</h1>
+                
+                <div class="color-tool_input">
+                    <p class="color-tool_input-title">Color (Hex)</p>
+                    <input type="text" id="hexInput" placeholder="#ffffff">
+                </div>
+
+                <div class="color-tool_input lighten-darken">
+                    <p class="color-tool_input-title">Lighten</p>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <p class="color-tool_input-title">Darken</p>
+                </div>
+
+                <div class="color-tool_input">
+                    <p class="color-tool_input-title"><span id="opacityLabel">35</span>%</p>
+                    <input type="range" id="opacityRange" min="0" max="100" value="35">
+                </div>
+
+                <div class="color-tool_input">
+                    <p class="color-tool_input-title">Input Color</p>
+                    <div class="color-tool_color-block input-color"></div>
+                </div>
+
+                <div class="color-tool_input">
+                    <p class="color-tool_input-title">Altered Color</p>
+                    <div class="color-tool_color-block altered-color"></div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="./Scripts/script.js" async defer></script>
+    </body>
+</html>

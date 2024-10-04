@@ -26,6 +26,14 @@ body {
     }
 }
 
+.darken-title, .lighten-title {
+    opacity: 0.3;
+}
+
+.darken-title.selected, .lighten-title.selected {
+    opacity: 1;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -40,7 +48,7 @@ body {
     }
 
     input:checked + .slider {
-        background-color: #2196F3;
+        background-color: #000000;
     }
     
     input:focus + .slider {

@@ -3,7 +3,20 @@ const opacityRange = document.getElementById("opacityRange");
 const opacityLabel = document.getElementById("opacityLabel");
 const inputColor = document.querySelector('.input-color');
 const alteredColor = document.querySelector('.altered-color');
+const alteredColorText = document.querySelector('.altered-color-text');
+const switchInput = document.getElementById("switchInput");
+const lightenTitle = document.querySelector('.lighten-title');
+const darkenTitle = document.querySelector('.darken-title');
 
+switchInput.addEventListener('change', function() {
+    if (switchInput.checked) {
+        darkenTitle.classList.add('selected');
+        lightenTitle.classList.remove('selected');
+    } else {
+        darkenTitle.classList.remove('selected');
+        lightenTitle.classList.add('selected');
+    }
+});
 // check if hex code is valid
 function isHexValid(hex) {
     // Regular expression to match valid 3 or 6 character hex codes, with optional '#'
@@ -99,6 +112,7 @@ hexInput.addEventListener("keyup", function() {
     const opacity = opacityRange.value / 100;
     newColor = alterColor(hexValue, opacity);
     alteredColor.style.backgroundColor = newColor;
+    alteredColorText.innerText = `Altered Color: ${newColor}`; 
 });
 
 opacityRange.addEventListener("input", function() {
@@ -119,6 +133,7 @@ opacityRange.addEventListener("input", function() {
 
         // update altered color background 
         alteredColor.style.backgroundColor = newColor;
+        alteredColorText.innerText = `Altered Color: ${newColor}`;
     }
 });
 

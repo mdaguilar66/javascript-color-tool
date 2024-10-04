@@ -23,6 +23,14 @@ body {
   height: 3em;
 }
 
+.darken-title, .lighten-title {
+  opacity: 0.3;
+}
+
+.darken-title.selected, .lighten-title.selected {
+  opacity: 1;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -36,7 +44,7 @@ body {
   height: 0;
 }
 .switch input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #000000;
 }
 .switch input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;

@@ -10,6 +10,8 @@ const darkenTitle = document.querySelector('.darken-title');
 let isDarken = false;
 
 switchInput.addEventListener('change', function() {
+    resetColor();
+
     if (switchInput.checked) {
         darkenTitle.classList.add('selected');
         lightenTitle.classList.remove('selected');
@@ -73,13 +75,9 @@ function convertRGBToHex(r, g, b) {
 // takes in rgb value as a string and opacity percentage 
 // returns new rgb value
 function increaseRGBByOpacity(r, g, b, opacity) {
-    console.log(opacity, 'opacity')
     // Ensure opacity is a decimal between 0 and 1
     // opacity = Math.min(Math.max(opacity, 0), 1);
     const amount = Math.floor((opacity) * 255);
-
-    console.log(opacity, 'opacity')
-    console.log(amount, 'amount')
 
     // Increase each RGB component by the opacity factor
     const newR = Math.min(255, Math.max(0, r + amount));
@@ -102,6 +100,19 @@ function alterColor(hex, opacity) {
 
     return newHex
 };
+
+function resetColor() {
+    let hexValue = hexInput.value;
+
+    // Set altered color to original input color
+    newColor = alterColor(hexValue, 0);
+    alteredColor.style.backgroundColor = newColor;
+    alteredColorText.innerText = `Altered Color: ${newColor}`;
+
+    //Set slider value to 0 and slider text to 0%
+    opacityRange.value = 0;
+    opacityLabel.textContent = opacityRange.value;
+}
 
 hexInput.addEventListener("keyup", function() {
     let hexValue = hexInput.value;

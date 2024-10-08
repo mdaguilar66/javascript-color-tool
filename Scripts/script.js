@@ -7,14 +7,17 @@ const alteredColorText = document.querySelector('.altered-color-text');
 const switchInput = document.getElementById("switchInput");
 const lightenTitle = document.querySelector('.lighten-title');
 const darkenTitle = document.querySelector('.darken-title');
+let isDarken = false;
 
 switchInput.addEventListener('change', function() {
     if (switchInput.checked) {
         darkenTitle.classList.add('selected');
         lightenTitle.classList.remove('selected');
+        isDarken = true;
     } else {
         darkenTitle.classList.remove('selected');
         lightenTitle.classList.add('selected');
+        isDarken = false;
     }
 });
 // check if hex code is valid
@@ -70,13 +73,18 @@ function convertRGBToHex(r, g, b) {
 // takes in rgb value as a string and opacity percentage 
 // returns new rgb value
 function increaseRGBByOpacity(r, g, b, opacity) {
+    console.log(opacity, 'opacity')
     // Ensure opacity is a decimal between 0 and 1
-    opacity = Math.min(Math.max(opacity, 0), 1);
+    // opacity = Math.min(Math.max(opacity, 0), 1);
+    const amount = Math.floor((opacity) * 255);
+
+    console.log(opacity, 'opacity')
+    console.log(amount, 'amount')
 
     // Increase each RGB component by the opacity factor
-    const newR = Math.min(Math.round(r + (255 - r) * opacity), 255);
-    const newG = Math.min(Math.round(g + (255 - g) * opacity), 255);
-    const newB = Math.min(Math.round(b + (255 - b) * opacity), 255);
+    const newR = Math.min(255, Math.max(0, r + amount));
+    const newG = Math.min(255, Math.max(0, g + amount));
+    const newB = Math.min(255, Math.max(0, b + amount));
 
     return {newR, newG, newB};
 };
@@ -98,10 +106,18 @@ function alterColor(hex, opacity) {
 hexInput.addEventListener("keyup", function() {
     let hexValue = hexInput.value;
     let newColor;
+    let opacity;
     
     // check new hex value is valid
     if (!isHexValid(hexValue)) {
         return;
+    }
+
+    // check lighten/darken switch
+    if (isDarken) {
+        opacity = -1 * (opacityRange.value / 100);
+    } else {
+        opacity = opacityRange.value / 100;
     }
 
     // update input color background with new hex value
@@ -109,19 +125,25 @@ hexInput.addEventListener("keyup", function() {
     inputColor.style.backgroundColor = "#" + strippedHex;
 
     // update altered color background with new hex value
-    const opacity = opacityRange.value / 100;
     newColor = alterColor(hexValue, opacity);
     alteredColor.style.backgroundColor = newColor;
     alteredColorText.innerText = `Altered Color: ${newColor}`; 
 });
 
 opacityRange.addEventListener("input", function() {
-    let newOpacity = opacityRange.value / 100;
+    let newOpacity;
     let hexValue = hexInput.value;
     let newColor;
 
     // update opacity label with selected percentage
     opacityLabel.textContent = opacityRange.value;
+
+    // check lighten/darken switch
+    if (isDarken) {
+        newOpacity = -1 * (opacityRange.value / 100);
+    } else {
+        newOpacity = opacityRange.value / 100;
+    }
 
     // check if hex is valid
     if (!isHexValid(hexValue)) {
